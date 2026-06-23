@@ -48,13 +48,28 @@ app.post("/generate-label", async (req, res) => {
     doc.pipe(stream);
 
     // ===========================
-    // ✅ LOGO SECTION
-    // ===========================
-    const logoPath = path.join(__dirname, "logo.png");
 
-    if (fs.existsSync(logoPath)) {
-      doc.image(logoPath, 90, 10, { width: 120 });
-    }
+   
+// ===========================
+// ✅ BACKGROUND LOGO (FADED)
+// ===========================
+const logoPath = path.join(__dirname, "logo.png");
+
+if (fs.existsSync(logoPath)) {
+  doc.save();
+
+  // Set opacity (very important for fade effect)
+  doc.opacity(0.08);
+
+  // Center + stretch logo across label
+  doc.image(logoPath, 20, 80, {
+    width: 250,   // almost full width
+    align: "center",
+  });
+
+  doc.restore();
+}
+
 
     doc.moveDown(4);
 
