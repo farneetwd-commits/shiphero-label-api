@@ -16,10 +16,10 @@ app.post("/generate-label", async (req, res) => {
   try {
     const data = req.body;
 
-    // ✅ FROM (sender)
-    const fromName = "Western Dispatch";
-    const fromAddress = "456 Dispatch Lane";
-    const fromCity = "Edmonton, AB";
+    // ✅ FROM (dynamic)
+    const fromName = data.from?.name || "Western Dispatch";
+    const fromAddress = data.from?.address || "456 Dispatch Lane";
+    const fromCity = data.from?.city || "Edmonton, AB";
 
     // ✅ TO
     const orderId = data.order_id || "ORDER123";
@@ -30,16 +30,14 @@ app.post("/generate-label", async (req, res) => {
     const trackingNumber =
       "FLEET" + Math.floor(100000 + Math.random() * 900000);
 
-// ✅ Barcode (no text)
-const barcodeY = 260;
-doc.image(barcodeBuffer, 30, barcodeY, { width: 230 });
-
-// ✅ Tracking number BELOW barcode
-doc
-  .fontSize(11)
-  .text(trackingNumber, 0, barcodeY + 60, {
-    align: "center",
-  });
+    // ✅ BARCODE (NO TEXT INSIDE)
+    const barcodeBuffer = await bwipjs.toBuffer({
+      bcid: "code128",
+      text: trackingNumber,
+      scale: 3,
+      height: 10,
+      includetext: false,
+    });
 
     const fileName = `label-${trackingNumber}.pdf`;
     const filePath = path.join(__dirname, fileName);
@@ -53,38 +51,37 @@ doc
     doc.pipe(stream);
 
     // ===========================
-    // ✅ WATERMARK
+    // ✅ WATERMARK (moved up)
     // ===========================
     const logoPath = path.join(__dirname, "logo.png");
     if (fs.existsSync(logoPath)) {
       doc.save();
       doc.opacity(0.07);
-      doc.image(logoPath, 20, 75, { width: 250 });
+      doc.image(logoPath, 20, 80, { width: 250 });
       doc.restore();
     }
 
     // ===========================
-    // ✅ FROM (fixed position)
+    // ✅ FROM
     // ===========================
     doc.fontSize(9).text("FROM:", 15, 15, { underline: true });
-
-    doc.fontSize(9).text(fromName, 15, 30);
+    doc.text(fromName, 15, 30);
     doc.text(fromAddress, 15, 42);
     doc.text(fromCity, 15, 54);
 
     // ===========================
-    // ✅ SHIP TO
+    // ✅ SHIP TO (MOVED RIGHT)
     // ===========================
     let startY = 90;
+    const shipToX = 35;
 
-    doc.fontSize(11).text("SHIP TO:", 30, startY, { underline: true });
-
-    doc.fontSize(13).text(customer, 30, startY + 18);
-    doc.fontSize(11).text(address, 30, startY + 36);
-    doc.text(city, 30, startY + 50);
+    doc.fontSize(11).text("SHIP TO:", shipToX, startY, { underline: true });
+    doc.fontSize(13).text(customer, shipToX, startY + 18);
+    doc.fontSize(11).text(address, shipToX, startY + 36);
+    doc.text(city, shipToX, startY + 50);
 
     // ===========================
-    // ✅ ORDER + TRACKING (smaller + lower)
+    // ✅ ORDER INFO
     // ===========================
     const infoY = startY + 80;
 
@@ -94,29 +91,35 @@ doc
     // ===========================
     // ✅ BARCODE
     // ===========================
-    const barcodeY = infoY + 35;
-    doc.image(barcodeBuffer, 30, 250, { width: 230 });
+    const barcodeY = 250;
+    doc.image(barcodeBuffer, 30, barcodeY, { width: 230 });
+
+    // ✅ TRACKING BELOW BARCODE (SPACED ✅)
+    doc
+      .font("Helvetica-Bold")
+      .fontSize(12)
+      .text(trackingNumber, 0, barcodeY + 60, {
+        align: "center",
+      });
 
     // ===========================
-    // ✅ BOTTOM LOGO (moved up)
+    // ✅ BOTTOM LOGO (FIXED)
     // ===========================
     const bottomLogoPath = path.join(__dirname, "logo1.png");
-
     if (fs.existsSync(bottomLogoPath)) {
-      doc.image(bottomLogoPath, 85, 345, { width: 120 });
+      doc.image(bottomLogoPath, 85, 360, { width: 120 });
     }
 
     // ===========================
-    // ✅ FOOTER (very bottom)
+    // ✅ FOOTER (ALIGNED)
     // ===========================
     doc
       .fillColor("gray")
-      .fontSize(7).text(
-      "POWERED BY WESTERN DISPATCH",
-      0,
-      412,
-      { align: "center" }
-    );
+      .fontSize(7)
+      .text("POWERED BY WESTERN DISPATCH", 0, 405, {
+        align: "center",
+        width: 288,
+      });
 
     doc.end();
 
@@ -137,4 +140,3 @@ doc
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Server running"));
-``
