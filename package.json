@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "pdfkit": "^0.13.0",
+    "bwip-js": "^2.1.2"
   }
 }
