@@ -93,7 +93,7 @@ app.post("/generate-label", async (req, res) => {
     // ✅ BARCODE
     // ===========================
     const barcodeY = infoY + 35;
-    doc.image(barcodeBuffer, 30, barcodeY, { width: 230 });
+    doc.image(barcodeBuffer, 30, 260, { width: 230 });
 
     // ===========================
     // ✅ BOTTOM LOGO (moved up)
@@ -112,7 +112,7 @@ app.post("/generate-label", async (req, res) => {
       .fontSize(7).text(
       "POWERED BY WESTERN DISPATCH",
       0,
-      410,
+      412,
       { align: "center" }
     );
 
