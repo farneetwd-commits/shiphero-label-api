@@ -107,7 +107,9 @@ app.post("/generate-label", async (req, res) => {
     // ===========================
     // ✅ FOOTER (very bottom)
     // ===========================
-    doc.fontSize(7).text(
+    doc
+      .fillColor("gray")
+      .fontSize(7).text(
       "POWERED BY WESTERN DISPATCH",
       0,
       405,
