@@ -18,6 +18,16 @@ app.post("/generate-label", async (req, res) => {
   try {
     const data = req.body;
 
+    // ===========================
+    // ✅ FROM (sender)
+    // ===========================
+    const fromName = "My Warehouse";
+    const fromAddress = "456 Dispatch Lane";
+    const fromCity = "Edmonton, AB";
+
+    // ===========================
+    // ✅ TO (receiver)
+    // ===========================
     const orderId = data.order_id || "ORDER123";
     const customer = data.shipping_address?.name || "Customer Name";
     const address = data.shipping_address?.address1 || "Address";
@@ -26,7 +36,9 @@ app.post("/generate-label", async (req, res) => {
     const trackingNumber =
       "FLEET" + Math.floor(100000 + Math.random() * 900000);
 
-    // ✅ Create Barcode
+    // ===========================
+    // ✅ BARCODE
+    // ===========================
     const barcodeBuffer = await bwipjs.toBuffer({
       bcid: "code128",
       text: trackingNumber,
@@ -38,7 +50,6 @@ app.post("/generate-label", async (req, res) => {
     const fileName = `label-${trackingNumber}.pdf`;
     const filePath = path.join(__dirname, fileName);
 
-    // ✅ Create 4x6 PDF
     const doc = new PDFDocument({
       size: [288, 432],
       margin: 10,
@@ -48,38 +59,35 @@ app.post("/generate-label", async (req, res) => {
     doc.pipe(stream);
 
     // ===========================
+    // ✅ BACKGROUND WATERMARK (logo.png)
+    // ===========================
+    const logoPath = path.join(__dirname, "logo.png");
 
-   
-// ===========================
-// ✅ BACKGROUND LOGO (FADED)
-// ===========================
-const logoPath = path.join(__dirname, "logo.png");
-
-if (fs.existsSync(logoPath)) {
-  doc.save();
-
-  // Set opacity (very important for fade effect)
-  doc.opacity(0.08);
-
-  // Center + stretch logo across label
-  doc.image(logoPath, 20, 80, {
-    width: 250,   // almost full width
-    align: "center",
-  });
-
-  doc.restore();
-}
-
-
-    doc.moveDown(4);
+    if (fs.existsSync(logoPath)) {
+      doc.save();
+      doc.opacity(0.07);
+      doc.image(logoPath, 20, 100, { width: 250 });
+      doc.restore();
+    }
 
     // ===========================
-    // ✅ SHIP TO SECTION
+    // ✅ FROM SECTION (TOP LEFT)
     // ===========================
+    doc.fontSize(10).text("FROM:", 15, 20, { underline: true });
+
+    doc.fontSize(10).text(fromName);
+    doc.text(fromAddress);
+    doc.text(fromCity);
+
+    // ===========================
+    // ✅ SHIP TO SECTION (CENTER)
+    // ===========================
+    doc.moveDown(5);
+
     doc.fontSize(12).text("SHIP TO:", { underline: true });
 
     doc.moveDown(0.5);
-    doc.fontSize(14).text(customer, { bold: true });
+    doc.fontSize(14).text(customer);
     doc.fontSize(12).text(address);
     doc.text(city);
 
@@ -91,34 +99,34 @@ if (fs.existsSync(logoPath)) {
     doc.fontSize(10).text(`Order ID: ${orderId}`);
     doc.text(`Tracking: ${trackingNumber}`);
 
-    doc.moveDown(1.5);
+    doc.moveDown(2);
 
     // ===========================
-    // ✅ BARCODE SECTION
+    // ✅ BARCODE
     // ===========================
-    doc.image(barcodeBuffer, 30, doc.y, {
-      width: 230,
-    });
+    doc.image(barcodeBuffer, 30, doc.y, { width: 230 });
 
-    doc.moveDown(5);
+    doc.moveDown(4);
+
     // ===========================
     // ✅ BOTTOM LOGO (logo1.png)
     // ===========================
     const bottomLogoPath = path.join(__dirname, "logo1.png");
 
     if (fs.existsSync(bottomLogoPath)) {
-     doc.image(bottomLogoPath, 90, 380, { width: 120 });
+      doc.image(bottomLogoPath, 90, 380, { width: 120 });
     }
+
+    
     // ===========================
-    // ✅ FOOTER
+    // ✅ FOOTER TEXT (POWERED BY)
     // ===========================
-    doc.fontSize(10).text("Powered by WESTERN DISPATCH", {
-      align: "center",
-    });
+    doc.fontSize(8).text("POWERED BY WESTERN DISPATCH", 0, 415, {
+    align: "center"
+    }
 
     doc.end();
 
-    // Wait until file is finished
     stream.on("finish", () => {
       const publicUrl = `https://${process.env.RENDER_EXTERNAL_HOSTNAME}/${fileName}`;
 
@@ -127,6 +135,7 @@ if (fs.existsSync(logoPath)) {
         label: publicUrl,
       });
     });
+
   } catch (err) {
     console.error(err);
     res.status(500).send("Error generating label");
@@ -135,4 +144,3 @@ if (fs.existsSync(logoPath)) {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Server running"));
-``
