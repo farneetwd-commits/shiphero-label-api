@@ -8,26 +8,20 @@ const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// Test route
 app.get("/", (req, res) => {
   res.send("Webhook is working");
 });
 
-// Generate Label
 app.post("/generate-label", async (req, res) => {
   try {
     const data = req.body;
 
-    // ===========================
     // ✅ FROM (sender)
-    // ===========================
-    const fromName = "My Warehouse";
+    const fromName = "Western Dispatch";
     const fromAddress = "456 Dispatch Lane";
     const fromCity = "Edmonton, AB";
 
-    // ===========================
-    // ✅ TO (receiver)
-    // ===========================
+    // ✅ TO
     const orderId = data.order_id || "ORDER123";
     const customer = data.shipping_address?.name || "Customer Name";
     const address = data.shipping_address?.address1 || "Address";
@@ -36,14 +30,12 @@ app.post("/generate-label", async (req, res) => {
     const trackingNumber =
       "FLEET" + Math.floor(100000 + Math.random() * 900000);
 
-    // ===========================
-    // ✅ BARCODE
-    // ===========================
+    // ✅ Barcode
     const barcodeBuffer = await bwipjs.toBuffer({
       bcid: "code128",
       text: trackingNumber,
       scale: 3,
-      height: 12,
+      height: 10,
       includetext: true,
     });
 
@@ -59,77 +51,70 @@ app.post("/generate-label", async (req, res) => {
     doc.pipe(stream);
 
     // ===========================
-    // ✅ BACKGROUND WATERMARK (logo.png)
+    // ✅ WATERMARK
     // ===========================
     const logoPath = path.join(__dirname, "logo.png");
-
     if (fs.existsSync(logoPath)) {
       doc.save();
       doc.opacity(0.07);
-      doc.image(logoPath, 20, 100, { width: 250 });
+      doc.image(logoPath, 20, 120, { width: 250 });
       doc.restore();
     }
 
-// ===========================
-// ✅ FROM SECTION (VISIBLE)
-// ===========================
-doc.fontSize(10).text("FROM:", 15, 15, { underline: true });
+    // ===========================
+    // ✅ FROM (fixed position)
+    // ===========================
+    doc.fontSize(9).text("FROM:", 15, 15, { underline: true });
 
-doc.fontSize(10).text(fromName, 15, 30);
-doc.text(fromAddress, 15, 45);
-doc.text(fromCity, 15, 60);
+    doc.fontSize(9).text(fromName, 15, 30);
+    doc.text(fromAddress, 15, 42);
+    doc.text(fromCity, 15, 54);
 
     // ===========================
-    // ✅ SHIP TO SECTION (CENTER)
+    // ✅ SHIP TO
     // ===========================
-    doc.moveDown(5);
+    let startY = 90;
 
-    doc.fontSize(12).text("SHIP TO:", { underline: true });
+    doc.fontSize(11).text("SHIP TO:", 15, startY, { underline: true });
 
-    doc.moveDown(0.5);
-    doc.fontSize(14).text(customer);
-    doc.fontSize(12).text(address);
-    doc.text(city);
-
-    doc.moveDown(1);
+    doc.fontSize(13).text(customer, 15, startY + 18);
+    doc.fontSize(11).text(address, 15, startY + 36);
+    doc.text(city, 15, startY + 50);
 
     // ===========================
-    // ✅ ORDER DETAILS
+    // ✅ ORDER + TRACKING (smaller + lower)
     // ===========================
-    doc.fontSize(10).text(`Order ID: ${orderId}`);
-    doc.text(`Tracking: ${trackingNumber}`);
+    const infoY = startY + 80;
 
-    doc.moveDown(2);
+    doc.fontSize(9).text(`Order ID: ${orderId}`, 15, infoY);
+    doc.fontSize(9).text(`Tracking: ${trackingNumber}`, 15, infoY + 14);
 
     // ===========================
     // ✅ BARCODE
     // ===========================
-    doc.image(barcodeBuffer, 30, doc.y, { width: 230 });
-
-    doc.moveDown(4);
+    const barcodeY = infoY + 35;
+    doc.image(barcodeBuffer, 30, barcodeY, { width: 230 });
 
     // ===========================
-    // ✅ BOTTOM LOGO (logo1.png)
+    // ✅ BOTTOM LOGO (moved up)
     // ===========================
     const bottomLogoPath = path.join(__dirname, "logo1.png");
 
     if (fs.existsSync(bottomLogoPath)) {
-      doc.image(bottomLogoPath, 90, 380, { width: 120 });
+      doc.image(bottomLogoPath, 85, 360, { width: 120 });
     }
 
-    
-  // ===========================
-// ✅ FOOTER TEXT (BOTTOM FIXED)
-// ===========================
-doc
-  .fillColor("gray")
-  .fontSize(7)
-  .text("POWERED BY WESTERN DISPATCH", 0, 420, {
-    align: "center",
-    width: 288
-  });
+    // ===========================
+    // ✅ FOOTER (very bottom)
+    // ===========================
+    doc.fontSize(7).text(
+      "POWERED BY WESTERN DISPATCH",
+      0,
+      420,
+      { align: "center" }
+    );
 
-doc.fillColor("black");
+    doc.end();
 
     stream.on("finish", () => {
       const publicUrl = `https://${process.env.RENDER_EXTERNAL_HOSTNAME}/${fileName}`;
@@ -148,3 +133,4 @@ doc.fillColor("black");
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Server running"));
+``
