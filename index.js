@@ -70,14 +70,14 @@ app.post("/generate-label", async (req, res) => {
       doc.restore();
     }
 
-    // ===========================
-    // ✅ FROM SECTION (TOP LEFT)
-    // ===========================
-    doc.fontSize(10).text("FROM:", 15, 20, { underline: true });
+// ===========================
+// ✅ FROM SECTION (VISIBLE)
+// ===========================
+doc.fontSize(10).text("FROM:", 15, 15, { underline: true });
 
-    doc.fontSize(10).text(fromName);
-    doc.text(fromAddress);
-    doc.text(fromCity);
+doc.fontSize(10).text(fromName, 15, 30);
+doc.text(fromAddress, 15, 45);
+doc.text(fromCity, 15, 60);
 
     // ===========================
     // ✅ SHIP TO SECTION (CENTER)
@@ -118,14 +118,18 @@ app.post("/generate-label", async (req, res) => {
     }
 
     
-    // ===========================
-    // ✅ FOOTER TEXT (POWERED BY)
-    // ===========================
-    doc.fontSize(8).text("POWERED BY WESTERN DISPATCH", 0, 415, {
-    align: "center"
-    }
+  // ===========================
+// ✅ FOOTER TEXT (BOTTOM FIXED)
+// ===========================
+doc
+  .fillColor("gray")
+  .fontSize(7)
+  .text("POWERED BY WESTERN DISPATCH", 0, 420, {
+    align: "center",
+    width: 288
+  });
 
-    doc.end();
+doc.fillColor("black");
 
     stream.on("finish", () => {
       const publicUrl = `https://${process.env.RENDER_EXTERNAL_HOSTNAME}/${fileName}`;
