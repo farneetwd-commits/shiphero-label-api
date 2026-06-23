@@ -30,14 +30,16 @@ app.post("/generate-label", async (req, res) => {
     const trackingNumber =
       "FLEET" + Math.floor(100000 + Math.random() * 900000);
 
-    // ✅ Barcode
-    const barcodeBuffer = await bwipjs.toBuffer({
-      bcid: "code128",
-      text: trackingNumber,
-      scale: 3,
-      height: 10,
-      includetext: true,
-    });
+// ✅ Barcode (no text)
+const barcodeY = 260;
+doc.image(barcodeBuffer, 30, barcodeY, { width: 230 });
+
+// ✅ Tracking number BELOW barcode
+doc
+  .fontSize(11)
+  .text(trackingNumber, 0, barcodeY + 60, {
+    align: "center",
+  });
 
     const fileName = `label-${trackingNumber}.pdf`;
     const filePath = path.join(__dirname, fileName);
@@ -57,7 +59,7 @@ app.post("/generate-label", async (req, res) => {
     if (fs.existsSync(logoPath)) {
       doc.save();
       doc.opacity(0.07);
-      doc.image(logoPath, 20, 70, { width: 250 });
+      doc.image(logoPath, 20, 75, { width: 250 });
       doc.restore();
     }
 
