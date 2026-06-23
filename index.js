@@ -101,7 +101,14 @@ if (fs.existsSync(logoPath)) {
     });
 
     doc.moveDown(5);
+    // ===========================
+    // ✅ BOTTOM LOGO (logo1.png)
+    // ===========================
+    const bottomLogoPath = path.join(__dirname, "logo1.png");
 
+    if (fs.existsSync(bottomLogoPath)) {
+     doc.image(bottomLogoPath, 90, 380, { width: 120 });
+    }
     // ===========================
     // ✅ FOOTER
     // ===========================
