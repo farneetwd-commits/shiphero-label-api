@@ -57,7 +57,7 @@ app.post("/generate-label", async (req, res) => {
     if (fs.existsSync(logoPath)) {
       doc.save();
       doc.opacity(0.07);
-      doc.image(logoPath, 20, 60, { width: 250 });
+      doc.image(logoPath, 20, 70, { width: 250 });
       doc.restore();
     }
 
@@ -93,7 +93,7 @@ app.post("/generate-label", async (req, res) => {
     // ✅ BARCODE
     // ===========================
     const barcodeY = infoY + 35;
-    doc.image(barcodeBuffer, 30, 260, { width: 230 });
+    doc.image(barcodeBuffer, 30, 250, { width: 230 });
 
     // ===========================
     // ✅ BOTTOM LOGO (moved up)
@@ -101,7 +101,7 @@ app.post("/generate-label", async (req, res) => {
     const bottomLogoPath = path.join(__dirname, "logo1.png");
 
     if (fs.existsSync(bottomLogoPath)) {
-      doc.image(bottomLogoPath, 85, 340, { width: 120 });
+      doc.image(bottomLogoPath, 85, 345, { width: 120 });
     }
 
     // ===========================
