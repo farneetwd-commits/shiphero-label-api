@@ -57,7 +57,7 @@ app.post("/generate-label", async (req, res) => {
     if (fs.existsSync(logoPath)) {
       doc.save();
       doc.opacity(0.07);
-      doc.image(logoPath, 20, 80, { width: 250 });
+      doc.image(logoPath, 20, 60, { width: 250 });
       doc.restore();
     }
 
