@@ -110,7 +110,7 @@ app.post("/generate-label", async (req, res) => {
     doc.fontSize(7).text(
       "POWERED BY WESTERN DISPATCH",
       0,
-      420,
+      405,
       { align: "center" }
     );
 
