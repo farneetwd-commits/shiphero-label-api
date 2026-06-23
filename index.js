@@ -101,7 +101,7 @@ app.post("/generate-label", async (req, res) => {
     const bottomLogoPath = path.join(__dirname, "logo1.png");
 
     if (fs.existsSync(bottomLogoPath)) {
-      doc.image(bottomLogoPath, 85, 360, { width: 120 });
+      doc.image(bottomLogoPath, 85, 350, { width: 120 });
     }
 
     // ===========================
@@ -112,7 +112,7 @@ app.post("/generate-label", async (req, res) => {
       .fontSize(7).text(
       "POWERED BY WESTERN DISPATCH",
       0,
-      405,
+      410,
       { align: "center" }
     );
 
