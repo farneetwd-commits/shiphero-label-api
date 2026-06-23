@@ -105,7 +105,7 @@ if (fs.existsSync(logoPath)) {
     // ===========================
     // ✅ FOOTER
     // ===========================
-    doc.fontSize(10).text("Powered by My Fleet", {
+    doc.fontSize(10).text("Powered by WESTERN DISPATCH", {
       align: "center",
     });
 
