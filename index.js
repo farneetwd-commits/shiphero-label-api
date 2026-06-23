@@ -57,7 +57,7 @@ app.post("/generate-label", async (req, res) => {
     if (fs.existsSync(logoPath)) {
       doc.save();
       doc.opacity(0.07);
-      doc.image(logoPath, 20, 120, { width: 250 });
+      doc.image(logoPath, 20, 80, { width: 250 });
       doc.restore();
     }
 
@@ -75,11 +75,11 @@ app.post("/generate-label", async (req, res) => {
     // ===========================
     let startY = 90;
 
-    doc.fontSize(11).text("SHIP TO:", 15, startY, { underline: true });
+    doc.fontSize(11).text("SHIP TO:", 30, startY, { underline: true });
 
-    doc.fontSize(13).text(customer, 15, startY + 18);
-    doc.fontSize(11).text(address, 15, startY + 36);
-    doc.text(city, 15, startY + 50);
+    doc.fontSize(13).text(customer, 30, startY + 18);
+    doc.fontSize(11).text(address, 30, startY + 36);
+    doc.text(city, 30, startY + 50);
 
     // ===========================
     // ✅ ORDER + TRACKING (smaller + lower)
@@ -112,7 +112,7 @@ app.post("/generate-label", async (req, res) => {
       .fontSize(7).text(
       "POWERED BY WESTERN DISPATCH",
       0,
-      412,
+      414,
       { align: "center" }
     );
 
