@@ -23,66 +23,88 @@ app.post("/generate-label", async (req, res) => {
     const address = data.shipping_address?.address1 || "Address";
     const city = data.shipping_address?.city || "City";
 
-    const trackingNumber = "FLEET" + Math.floor(100000 + Math.random() * 900000);
+    const trackingNumber =
+      "FLEET" + Math.floor(100000 + Math.random() * 900000);
 
-    // Create barcode
+    // ✅ Create Barcode
     const barcodeBuffer = await bwipjs.toBuffer({
       bcid: "code128",
       text: trackingNumber,
       scale: 3,
-      height: 10,
+      height: 12,
       includetext: true,
     });
 
     const fileName = `label-${trackingNumber}.pdf`;
     const filePath = path.join(__dirname, fileName);
 
-    // Create PDF (4x6 inches)
+    // ✅ Create 4x6 PDF
     const doc = new PDFDocument({
-      size: [288, 432], // 4x6 inches (72 DPI)
+      size: [288, 432],
       margin: 10,
     });
 
     const stream = fs.createWriteStream(filePath);
     doc.pipe(stream);
 
-    // ✅ LOGO (Replace with your logo URL if needed)
-    doc.fontSize(16).text("MY FLEET LOGO", { align: "center" });
+    // ===========================
+    // ✅ LOGO SECTION
+    // ===========================
+    const logoPath = path.join(__dirname, "logo.png");
 
-    doc.moveDown();
+    if (fs.existsSync(logoPath)) {
+      doc.image(logoPath, 90, 10, { width: 120 });
+    }
 
-    // ✅ ADDRESS BLOCK
-    doc.fontSize(12).text(`Ship To:`, { underline: true });
-    doc.text(customer);
-    doc.text(address);
+    doc.moveDown(4);
+
+    // ===========================
+    // ✅ SHIP TO SECTION
+    // ===========================
+    doc.fontSize(12).text("SHIP TO:", { underline: true });
+
+    doc.moveDown(0.5);
+    doc.fontSize(14).text(customer, { bold: true });
+    doc.fontSize(12).text(address);
     doc.text(city);
 
-    doc.moveDown();
+    doc.moveDown(1);
 
-    // ✅ ORDER INFO
+    // ===========================
+    // ✅ ORDER DETAILS
+    // ===========================
     doc.fontSize(10).text(`Order ID: ${orderId}`);
     doc.text(`Tracking: ${trackingNumber}`);
 
-    doc.moveDown();
+    doc.moveDown(1.5);
 
-    // ✅ BARCODE
-    doc.image(barcodeBuffer, {
-      fit: [250, 80],
-      align: "center"
+    // ===========================
+    // ✅ BARCODE SECTION
+    // ===========================
+    doc.image(barcodeBuffer, 30, doc.y, {
+      width: 230,
+    });
+
+    doc.moveDown(5);
+
+    // ===========================
+    // ✅ FOOTER
+    // ===========================
+    doc.fontSize(10).text("Powered by My Fleet", {
+      align: "center",
     });
 
     doc.end();
 
-    // Wait until file is finished writing
+    // Wait until file is finished
     stream.on("finish", () => {
       const publicUrl = `https://${process.env.RENDER_EXTERNAL_HOSTNAME}/${fileName}`;
 
       res.json({
         tracking_number: trackingNumber,
-        label: publicUrl
+        label: publicUrl,
       });
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).send("Error generating label");
@@ -91,3 +113,4 @@ app.post("/generate-label", async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Server running"));
+``
