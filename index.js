@@ -49,8 +49,8 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     const filePath = path.join(__dirname, fileName);
 
     const doc = new PDFDocument({
-      size: [288, 432],
-      margin: 25,
+      size: [260, 390],
+      margin: 10,
     });
 
     const stream = fs.createWriteStream(filePath);
