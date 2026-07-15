@@ -104,7 +104,7 @@ doc.text(
     // ✅ BARCODE
     // ===========================
     const barcodeY = 210;
-    doc.image(barcodeBuffer, 40, barcodeY, { width: 150 });
+    doc.image(barcodeBuffer, 10, barcodeY, { width: 100 });
 
     // ✅ TRACKING BELOW BARCODE (SPACED ✅)
     doc
