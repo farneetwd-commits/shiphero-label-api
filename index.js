@@ -63,7 +63,7 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     if (fs.existsSync(logoPath)) {
       doc.save();
       doc.opacity(0.07);
-      doc.image(logoPath, 20, 80, { width: 250 });
+      doc.image(logoPath, 10, 60, { width: 180 });
       doc.restore();
     }
 
@@ -88,7 +88,7 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
 doc.text(
   `${city}${state ? ", " + state : ""}${postalCode ? " " + postalCode : ""}`,
   shipToX,
-  startY + 38
+  startY + 34
 );
 
 
@@ -108,7 +108,7 @@ doc.text(
 
     // ✅ TRACKING BELOW BARCODE (SPACED ✅)
     doc
-      .font("Helvetica-Bold")
+      .font("Helvetica")
       .fontSize(9)
       .text(trackingNumber, 70, barcodeY + 30);
 
@@ -117,16 +117,16 @@ doc.text(
     // ===========================
     const bottomLogoPath = path.join(__dirname, "logo1.png");
     if (fs.existsSync(bottomLogoPath)) {
-      doc.image(bottomLogoPath, 65, 220, { width: 100 });
+      doc.image(bottomLogoPath, 60, 220, { width: 80 });
     }
 
     // ===========================
     // ✅ FOOTER (ALIGNED)
     // ===========================
     doc
-      .fillColor("gray")
+      .fillColor("dark gray")
       .fontSize(5)
-      .text("POWERED BY WESTERN DISPATCH", 50, 250, {
+      .text("POWERED BY WESTERN DISPATCH", 50, 270, {
         width: 288,
       });
 
