@@ -29,8 +29,8 @@ const orderId = data.order_number || "";
 const customer = data.shipping_address?.name || "Customer Name";
 const address = data.shipping_address?.address1 || "Address";
 const city = data.shipping_address?.city || "City";
-const state = data.shipping_address?.state || "";
-const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode || data.shipping_address?.postal_code || "";
+const state = data.shipping_address?.state || "State";
+const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode || data.shipping_address?.postal_code || "Zip/Postal Code";
 
 
     const trackingNumber =
@@ -73,7 +73,7 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     doc.fontSize(9).text("FROM:", 15, 15, { underline: true });
     doc.text(fromName, 15, 30);
     doc.text(fromAddress, 15, 42);
-    doc.text(`${fromCity} ${fromPostalCode}`, 15, 54);
+    doc.text(`${fromCity} ${fromState} ${fromPostalCode}`, 15, 54);
 
     // ===========================
     // ✅ SHIP TO (MOVED RIGHT)
