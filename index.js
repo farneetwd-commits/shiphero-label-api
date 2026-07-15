@@ -108,7 +108,7 @@ doc.text(
 
     // ✅ TRACKING BELOW BARCODE (SPACED ✅)
     doc
-      .font("Helvetica")
+      .font("Times-Bold")
       .fontSize(9)
       .text(trackingNumber, 70, barcodeY + 30);
 
@@ -117,7 +117,7 @@ doc.text(
     // ===========================
     const bottomLogoPath = path.join(__dirname, "logo1.png");
     if (fs.existsSync(bottomLogoPath)) {
-      doc.image(bottomLogoPath, 60, 225, { width: 70 });
+      doc.image(bottomLogoPath, 63, 225, { width: 70 });
     }
 
     // ===========================
@@ -126,7 +126,7 @@ doc.text(
     doc
       .fillColor("dark gray")
       .fontSize(5)
-      .text("POWERED BY WESTERN DISPATCH", 55, 272, {
+      .text("POWERED BY WESTERN DISPATCH", 58, 272, {
         width: 288,
       });
 
