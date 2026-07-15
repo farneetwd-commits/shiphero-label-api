@@ -104,13 +104,13 @@ doc.text(
     // ✅ BARCODE
     // ===========================
     const barcodeY = 210;
-    doc.image(barcodeBuffer, 10, barcodeY, { width: 100 });
+    doc.image(barcodeBuffer, 20, barcodeY, { width: 100 });
 
     // ✅ TRACKING BELOW BARCODE (SPACED ✅)
     doc
       .font("Helvetica-Bold")
       .fontSize(9)
-      .text(trackingNumber, 0, barcodeY + 60, {
+      .text(trackingNumber, 0, barcodeY + 40, {
         align: "center",
       });
 
