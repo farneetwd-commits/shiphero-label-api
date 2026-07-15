@@ -50,7 +50,7 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
 
     const doc = new PDFDocument({
       size: [288, 432],
-      margin: 10,
+      margin: 25,
     });
 
     const stream = fs.createWriteStream(filePath);
@@ -104,7 +104,7 @@ doc.text(
     // ✅ BARCODE
     // ===========================
     const barcodeY = 250;
-    doc.image(barcodeBuffer, 30, barcodeY, { width: 230 });
+    doc.image(barcodeBuffer, 40, barcodeY, { width: 200 });
 
     // ✅ TRACKING BELOW BARCODE (SPACED ✅)
     doc
