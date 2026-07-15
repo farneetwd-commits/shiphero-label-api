@@ -70,7 +70,7 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     // ===========================
     // ✅ FROM
     // ===========================
-    doc.Size(7).text("FROM:", 15, 15, { underline: true });
+    doc.fontSize(7).text("FROM:", 15, 15, { underline: true });
     doc.text(fromName, 15, 26);
     doc.text(fromAddress, 15, 37);
     doc.text(`${fromCity} ${fromState} ${fromPostalCode}`, 15, 48);
