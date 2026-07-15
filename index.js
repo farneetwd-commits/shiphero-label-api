@@ -62,7 +62,7 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     const logoPath = path.join(__dirname, "logo.png");
     if (fs.existsSync(logoPath)) {
       doc.save();
-      doc.opacity(0.07);
+      doc.opacity(0.09);
       doc.image(logoPath, 10, 60, { width: 180 });
       doc.restore();
     }
@@ -83,12 +83,12 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
 
     doc.fontSize(8).text("SHIP TO:", shipToX, startY, { underline: true });
     doc.fontSize(9).text(customer, shipToX, startY + 10);
-    doc.fontSize(8).text(address, shipToX, startY + 18);
+    doc.fontSize(8).text(address, shipToX, startY + 19);
   
 doc.text(
   `${city}${state ? ", " + state : ""}${postalCode ? " " + postalCode : ""}`,
   shipToX,
-  startY + 34
+  startY + 31
 );
 
 
@@ -117,7 +117,7 @@ doc.text(
     // ===========================
     const bottomLogoPath = path.join(__dirname, "logo1.png");
     if (fs.existsSync(bottomLogoPath)) {
-      doc.image(bottomLogoPath, 60, 220, { width: 80 });
+      doc.image(bottomLogoPath, 60, 225, { width: 70 });
     }
 
     // ===========================
@@ -126,7 +126,7 @@ doc.text(
     doc
       .fillColor("dark gray")
       .fontSize(5)
-      .text("POWERED BY WESTERN DISPATCH", 50, 270, {
+      .text("POWERED BY WESTERN DISPATCH", 55, 272, {
         width: 288,
       });
 
