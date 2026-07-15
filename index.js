@@ -103,14 +103,14 @@ doc.text(
     // ===========================
     // ✅ BARCODE
     // ===========================
-    const barcodeY = 200;
-    doc.image(barcodeBuffer, 20, barcodeY, { width: 100 });
+    const barcodeY = 180;
+    doc.image(barcodeBuffer, 60, barcodeY, { width: 100 });
 
     // ✅ TRACKING BELOW BARCODE (SPACED ✅)
     doc
       .font("Helvetica-Bold")
       .fontSize(9)
-      .text(trackingNumber, 80, barcodeY + 30);
+      .text(trackingNumber, 70, barcodeY + 30);
 
     // ===========================
     // ✅ BOTTOM LOGO (FIXED)
