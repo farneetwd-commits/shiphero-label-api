@@ -110,7 +110,7 @@ doc.text(
     doc
       .font("Helvetica-Bold")
       .fontSize(12)
-      .text(trackingNumber, 0, barcodeY + 60, {
+      .text(trackingNumber, 0, barcodeY + 40, {
         align: "center",
       });
 
