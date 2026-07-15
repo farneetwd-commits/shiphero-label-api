@@ -25,7 +25,7 @@ const fromState = data.from?.state || "AB";
 const fromPostalCode = data.from?.zip || data.from?.postal_code || "T5M 3R8";
 
 // ✅ TO
-const orderId = data.order_number || "";
+const orderId = data.order_number || "ShipHero Order";
 const customer = data.shipping_address?.name || "Customer Name";
 const address = data.shipping_address?.address1 || "Address";
 const city = data.shipping_address?.city || "City";
