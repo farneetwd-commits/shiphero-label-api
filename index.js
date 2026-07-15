@@ -70,20 +70,20 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     // ===========================
     // ✅ FROM
     // ===========================
-    doc.fontSize(6).text("FROM:", 15, 15, { underline: true });
+    doc.fontSize(7).text("FROM:", 15, 15, { underline: true });
     doc.text(fromName, 15, 26);
-    doc.text(fromAddress, 15, 38);
-    doc.text(`${fromCity} ${fromState} ${fromPostalCode}`, 15, 50);
+    doc.text(fromAddress, 15, 37);
+    doc.text(`${fromCity} ${fromState} ${fromPostalCode}`, 15, 49);
 
     // ===========================
     // ✅ SHIP TO (MOVED RIGHT)
     // ===========================
-    let startY = 90;
+    let startY = 80;
     const shipToX = 35;
 
     doc.fontSize(8).text("SHIP TO:", shipToX, startY, { underline: true });
-    doc.fontSize(9).text(customer, shipToX, startY + 18);
-    doc.fontSize(8).text(address, shipToX, startY + 36);
+    doc.fontSize(9).text(customer, shipToX, startY + 16);
+    doc.fontSize(8).text(address, shipToX, startY + 34);
   
 doc.text(
   `${city}${state ? ", " + state : ""}${postalCode ? " " + postalCode : ""}`,
