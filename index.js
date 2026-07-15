@@ -83,19 +83,19 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
 
     doc.fontSize(8).text("SHIP TO:", shipToX, startY, { underline: true });
     doc.fontSize(9).text(customer, shipToX, startY + 14);
-    doc.fontSize(8).text(address, shipToX, startY + 32);
+    doc.fontSize(8).text(address, shipToX, startY + 28);
   
 doc.text(
   `${city}${state ? ", " + state : ""}${postalCode ? " " + postalCode : ""}`,
   shipToX,
-  startY + 50
+  startY + 40
 );
 
 
     // ===========================
     // ✅ ORDER INFO
     // ===========================
-    const infoY = startY + 80;
+    const infoY = startY + 70;
 
     doc.fontSize(6).text(`Order ID: ${orderId}`, 15, infoY);
     doc.fontSize(6).text(`Tracking: ${trackingNumber}`, 15, infoY + 14);
