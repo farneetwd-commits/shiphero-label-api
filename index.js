@@ -70,7 +70,7 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     // ===========================
     // ✅ FROM
     // ===========================
-    doc.fontSize(9).text("FROM:", 15, 15, { underline: true });
+    doc.fontSize(5).text("FROM:", 15, 15, { underline: true });
     doc.text(fromName, 15, 30);
     doc.text(fromAddress, 15, 42);
     doc.text(`${fromCity} ${fromState} ${fromPostalCode}`, 15, 54);
@@ -81,9 +81,9 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     let startY = 90;
     const shipToX = 35;
 
-    doc.fontSize(11).text("SHIP TO:", shipToX, startY, { underline: true });
-    doc.fontSize(13).text(customer, shipToX, startY + 18);
-    doc.fontSize(11).text(address, shipToX, startY + 36);
+    doc.fontSize(8).text("SHIP TO:", shipToX, startY, { underline: true });
+    doc.fontSize(9).text(customer, shipToX, startY + 18);
+    doc.fontSize(8).text(address, shipToX, startY + 36);
   
 doc.text(
   `${city}${state ? ", " + state : ""}${postalCode ? " " + postalCode : ""}`,
@@ -97,8 +97,8 @@ doc.text(
     // ===========================
     const infoY = startY + 80;
 
-    doc.fontSize(9).text(`Order ID: ${orderId}`, 15, infoY);
-    doc.fontSize(9).text(`Tracking: ${trackingNumber}`, 15, infoY + 14);
+    doc.fontSize(6).text(`Order ID: ${orderId}`, 15, infoY);
+    doc.fontSize(6).text(`Tracking: ${trackingNumber}`, 15, infoY + 14);
 
     // ===========================
     // ✅ BARCODE
@@ -109,7 +109,7 @@ doc.text(
     // ✅ TRACKING BELOW BARCODE (SPACED ✅)
     doc
       .font("Helvetica-Bold")
-      .fontSize(12)
+      .fontSize(9)
       .text(trackingNumber, 0, barcodeY + 60, {
         align: "center",
       });
@@ -127,7 +127,7 @@ doc.text(
     // ===========================
     doc
       .fillColor("gray")
-      .fontSize(7)
+      .fontSize(5)
       .text("POWERED BY WESTERN DISPATCH", 0, 412, {
         align: "center",
         width: 288,
