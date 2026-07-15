@@ -16,16 +16,22 @@ app.post("/generate-label", async (req, res) => {
   try {
     const data = req.body;
 
-    // ✅ FROM (dynamic)
-    const fromName = data.from?.name || "Western Dispatch";
-    const fromAddress = data.from?.address || "456 Dispatch Lane";
-    const fromCity = data.from?.city || "Edmonton, AB";
+ 
+// ✅ FROM (dynamic)
+const fromName = data.from?.name || "Western Dispatch";
+const fromAddress = data.from?.address || "16630 144 Ave NW";
+const fromCity = data.from?.city || "Edmonton";
+const fromState = data.from?.state || "AB";
+const fromPostalCode = data.from?.zip || data.from?.postal_code || "T5M 3R8";
 
-    // ✅ TO
-    const orderId = data.order_id || "ORDER123";
-    const customer = data.shipping_address?.name || "Customer Name";
-    const address = data.shipping_address?.address1 || "Address";
-    const city = data.shipping_address?.city || "City";
+// ✅ TO
+const orderId = data.order_number || "";
+const customer = data.shipping_address?.name || "Customer Name";
+const address = data.shipping_address?.address1 || "Address";
+const city = data.shipping_address?.city || "City";
+const state = data.shipping_address?.state || "";
+const postalCode = data.shipping_address?.zip || data.shipping_address?.postal_code || "";
+
 
     const trackingNumber =
       "FLEET" + Math.floor(100000 + Math.random() * 900000);
