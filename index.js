@@ -30,7 +30,7 @@ const customer = data.shipping_address?.name || "Customer Name";
 const address = data.shipping_address?.address1 || "Address";
 const city = data.shipping_address?.city || "City";
 const state = data.shipping_address?.state || "";
-const postalCode = data.shipping_address?.zip || data.shipping_address?.postal_code || "";
+const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode || data.shipping_address?.postal_code || "";
 
 
     const trackingNumber =
@@ -73,7 +73,7 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.postal_c
     doc.fontSize(9).text("FROM:", 15, 15, { underline: true });
     doc.text(fromName, 15, 30);
     doc.text(fromAddress, 15, 42);
-    doc.text(`${fromCity}, ${fromState} ${fromPostalCode}`, 15, 54);
+    doc.text(`${fromCity} ${fromPostalCode}`, 15, 54);
 
     // ===========================
     // ✅ SHIP TO (MOVED RIGHT)
@@ -84,7 +84,13 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.postal_c
     doc.fontSize(11).text("SHIP TO:", shipToX, startY, { underline: true });
     doc.fontSize(13).text(customer, shipToX, startY + 18);
     doc.fontSize(11).text(address, shipToX, startY + 36);
-    doc.text(`${city}, ${state} ${postalCode}`, shipToX, startY + 50);
+  
+doc.text(
+  `${city}${state ? ", " + state : ""}${postalCode ? " " + postalCode : ""}`,
+  shipToX,
+  startY + 50
+);
+
 
     // ===========================
     // ✅ ORDER INFO
