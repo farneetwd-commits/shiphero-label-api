@@ -126,8 +126,7 @@ doc.text(
     doc
       .fillColor("gray")
       .fontSize(5)
-      .text("POWERED BY WESTERN DISPATCH", 0, 250, {
-        align: "left",
+      .text("POWERED BY WESTERN DISPATCH", 50, 250, {
         width: 288,
       });
 
