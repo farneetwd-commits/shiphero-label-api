@@ -104,20 +104,20 @@ doc.text(
     // ✅ BARCODE
     // ===========================
     const barcodeY = 180;
-    doc.image(barcodeBuffer, 50, barcodeY, { width: 100 });
+    doc.image(barcodeBuffer, 52, barcodeY, { width: 100 });
 
     // ✅ TRACKING BELOW BARCODE (SPACED ✅)
     doc
       .font("AptosBlack")
       .fontSize(9)
-      .text(trackingNumber, 70, barcodeY + 30);
+      .text(trackingNumber, 72, barcodeY + 30);
 
     // ===========================
     // ✅ BOTTOM LOGO (FIXED)
     // ===========================
     const bottomLogoPath = path.join(__dirname, "logo1.png");
     if (fs.existsSync(bottomLogoPath)) {
-      doc.image(bottomLogoPath, 63, 225, { width: 70 });
+      doc.image(bottomLogoPath, 64, 225, { width: 70 });
     }
 
     // ===========================
@@ -126,7 +126,7 @@ doc.text(
     doc
       .fillColor("dark gray")
       .fontSize(5)
-      .text("POWERED BY WESTERN DISPATCH", 58, 272, {
+      .text("POWERED BY WESTERN DISPATCH", 59, 272, {
         width: 288,
       });
 
