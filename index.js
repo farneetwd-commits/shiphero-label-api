@@ -73,7 +73,7 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     doc.fontSize(7).text("FROM:", 15, 15, { underline: true });
     doc.text(fromName, 15, 26);
     doc.text(fromAddress, 15, 37);
-    doc.text(`${fromCity} ${fromState} ${fromPostalCode}`, 15, 49);
+    doc.text(`${fromCity} ${fromState} ${fromPostalCode}`, 15, 48);
 
     // ===========================
     // ✅ SHIP TO (MOVED RIGHT)
@@ -82,8 +82,8 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     const shipToX = 35;
 
     doc.fontSize(8).text("SHIP TO:", shipToX, startY, { underline: true });
-    doc.fontSize(9).text(customer, shipToX, startY + 16);
-    doc.fontSize(8).text(address, shipToX, startY + 34);
+    doc.fontSize(9).text(customer, shipToX, startY + 14);
+    doc.fontSize(8).text(address, shipToX, startY + 32);
   
 doc.text(
   `${city}${state ? ", " + state : ""}${postalCode ? " " + postalCode : ""}`,
@@ -103,7 +103,7 @@ doc.text(
     // ===========================
     // ✅ BARCODE
     // ===========================
-    const barcodeY = 225;
+    const barcodeY = 220;
     doc.image(barcodeBuffer, 40, barcodeY, { width: 200 });
 
     // ✅ TRACKING BELOW BARCODE (SPACED ✅)
