@@ -88,7 +88,7 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
 doc.text(
   `${city}${state ? ", " + state : ""}${postalCode ? " " + postalCode : ""}`,
   shipToX,
-  startY + 31
+  startY + 30
 );
 
 
