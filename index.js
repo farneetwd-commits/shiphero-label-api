@@ -81,9 +81,9 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     let startY = 75;
     const shipToX = 35;
 
-    doc.Size(8).text("SHIP TO:", shipToX, startY, { underline: true });
-    doc.Size(9).text(customer, shipToX, startY + 10);
-    doc.Size(8).text(address, shipToX, startY + 19);
+    doc.fontSize(8).text("SHIP TO:", shipToX, startY, { underline: true });
+    doc.fontSize(9).text(customer, shipToX, startY + 10);
+    doc.fontSize(8).text(address, shipToX, startY + 19);
   
 doc.text(
   `${city}${state ? ", " + state : ""}${postalCode ? " " + postalCode : ""}`,
@@ -97,8 +97,8 @@ doc.text(
     // ===========================
     const infoY = startY + 70;
 
-    doc.Size(7).text(`Order ID: ${orderId}`, 15, infoY);
-    doc.Size(7).text(`Tracking: ${trackingNumber}`, 15, infoY + 14);
+    doc.fontSize(7).text(`Order ID: ${orderId}`, 15, infoY);
+    doc.fontSize(7).text(`Tracking: ${trackingNumber}`, 15, infoY + 14);
 
     // ===========================
     // ✅ BARCODE
