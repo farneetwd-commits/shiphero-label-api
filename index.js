@@ -108,7 +108,7 @@ doc.text(
 
     // ✅ TRACKING BELOW BARCODE (SPACED ✅)
     doc
-      .font("Aptos Black")
+      .font("AptosBlack")
       .fontSize(9)
       .text(trackingNumber, 70, barcodeY + 30);
 
