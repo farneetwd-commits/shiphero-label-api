@@ -117,7 +117,7 @@ doc.text(
     // ===========================
     const bottomLogoPath = path.join(__dirname, "logo1.png");
     if (fs.existsSync(bottomLogoPath)) {
-      doc.image(bottomLogoPath, 85, 245, { width: 120 });
+      doc.image(bottomLogoPath, 65, 220, { width: 100 });
     }
 
     // ===========================
@@ -126,8 +126,8 @@ doc.text(
     doc
       .fillColor("gray")
       .fontSize(5)
-      .text("POWERED BY WESTERN DISPATCH", 0, 312, {
-        align: "center",
+      .text("POWERED BY WESTERN DISPATCH", 0, 250, {
+        align: "left",
         width: 288,
       });
 
