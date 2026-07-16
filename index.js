@@ -102,7 +102,7 @@ doc.text(
     // ===========================
     // ✅ ORDER INFO
     // ===========================
-    const infoY = startY + 60;
+    const infoY = startY + 62;
 
     doc.fontSize(7).text(`Order ID: ${orderId}`, 15, infoY);
     doc.fontSize(7).text(`Tracking: ${trackingNumber}`, 15, infoY + 14);
@@ -110,7 +110,7 @@ doc.text(
     // ===========================
     // ✅ BARCODE
     // ===========================
-    const barcodeY = 180;
+    const barcodeY = 172;
     doc.image(barcodeBuffer, 52, barcodeY, { width: 100 });
 
     // ✅ TRACKING BELOW BARCODE (SPACED ✅)
