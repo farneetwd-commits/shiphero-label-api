@@ -89,7 +89,7 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     const shipToX = 35;
 
     doc.fontSize(8).text("SHIP TO:", shipToX, startY, { underline: true });
-    doc.fontSize(9).text(customer, shipToX, startY + 10);
+    doc.fontSize(9).text(customer, shipToX, startY + 11);
     doc.fontSize(8).text(address, shipToX, startY + 19);
   
 doc.text(
