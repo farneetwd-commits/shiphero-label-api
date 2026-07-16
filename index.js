@@ -25,19 +25,28 @@ app.post("/generate-label", async (req, res) => {
 
  
 // ✅ FROM (dynamic)
-const fromName = data.from?.name || "Western Dispatch";
-const fromAddress = data.from?.address || "16630 144 Ave NW";
-const fromCity = data.from?.city || "Edmonton";
-const fromState = data.from?.state || "AB";
-const fromPostalCode = data.from?.zip || data.from?.postal_code || "T5M 3R8";
+    
+const fromName = data.from_address?.name || "Western Dispatch";
+const fromAddress = data.from_address?.address_1 || "16630 144 Ave NW";
+const fromCity = data.from_address?.city || "Edmonton";
+const fromState = data.from_address?.state || "AB";
+const fromPostalCode = data.from_address?.zip || "T5M 3R8";
+
 
 // ✅ TO
-const orderId = data.order_number || "ShipHero Order";
-const customer = data.shipping_address?.name || data.ship_to?.name || data.customer_name || "Customer Name";
-const address = data.shipping_address?.address1 || data.ship_to?.address1 || data.address1 || "Address";
-const city = data.shipping_address?.city || data.ship_to?.city || "City";
-const state = data.shipping_address?.state || data.ship_to?.state || "State";
-const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode || data.shipping_address?.postal_code || data.ship_to?.zip || data.ship_to?.postal_code || "Zip/Postal Code";
+//const orderId = data.order_number || "ShipHero Order";
+//const customer = data.shipping_address?.name || data.ship_to?.name || data.customer_name || "Customer Name";
+//const address = data.shipping_address?.address1 || data.ship_to?.address1 || data.address1 || "Address";
+//const city = data.shipping_address?.city || data.ship_to?.city || "City";
+//const state = data.shipping_address?.state || data.ship_to?.state || "State";
+//const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode || data.shipping_address?.postal_code || data.ship_to?.zip || data.ship_to?.postal_code || "Zip/Postal Code";
+
+    
+const customer = data.to_address?.name || "Customer Name";
+const address = data.to_address?.address_1 || "Address";
+const city = data.to_address?.city || "City";
+const state = data.to_address?.state || "State";
+const postalCode = data.to_address?.zip || "Zip/Postal Code";
 
 
     const trackingNumber =
