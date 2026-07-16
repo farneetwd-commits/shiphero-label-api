@@ -41,7 +41,7 @@ const fromPostalCode = data.from_address?.zip || "T5M 3R8";
 //const state = data.shipping_address?.state || data.ship_to?.state || "State";
 //const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode || data.shipping_address?.postal_code || data.ship_to?.zip || data.ship_to?.postal_code || "Zip/Postal Code";
 
-    
+const orderId = data.order_number || "ShipHero Order";    
 const customer = data.to_address?.name || "Customer Name";
 const address = data.to_address?.address_1 || "Address";
 const city = data.to_address?.city || "City";
