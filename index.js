@@ -89,8 +89,8 @@ const postalCode = data.shipping_address?.zip || data.shipping_address?.zipcode 
     const shipToX = 35;
 
     doc.fontSize(8).text("SHIP TO:", shipToX, startY, { underline: true });
-    doc.fontSize(9).text(customer, shipToX, startY + 11);
-    doc.fontSize(8).text(address, shipToX, startY + 19);
+    doc.fontSize(9).text(customer, shipToX, startY + 10);
+    doc.fontSize(8).text(address, shipToX, startY + 21);
   
 doc.text(
   `${city}${state ? ", " + state : ""}${postalCode ? " " + postalCode : ""}`,
@@ -117,7 +117,7 @@ doc.text(
     doc
       .font("Helvetica-Bold")
       .fontSize(9)
-      .text(trackingNumber, 72, barcodeY + 29);
+      .text(trackingNumber, 72, barcodeY + 28);
 
     // ===========================
     // ✅ BOTTOM LOGO (FIXED)
