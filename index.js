@@ -17,8 +17,10 @@ app.post("/generate-label", async (req, res) => {
     const data = req.body;
 
     
+
     console.log("===== SHIPHERO PAYLOAD =====");
-    console.log(JSON.stringify(req.body, nu
+    console.log(JSON.stringify(req.body, null, 2));
+
 
 
  
