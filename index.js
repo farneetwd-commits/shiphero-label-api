@@ -16,6 +16,11 @@ app.post("/generate-label", async (req, res) => {
   try {
     const data = req.body;
 
+    
+    console.log("===== SHIPHERO PAYLOAD =====");
+    console.log(JSON.stringify(req.body, nu
+
+
  
 // ✅ FROM (dynamic)
 const fromName = data.from?.name || "Western Dispatch";
