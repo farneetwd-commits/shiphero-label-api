@@ -142,6 +142,11 @@ doc.text(
     stream.on("finish", () => {
       const publicUrl = `https://${process.env.RENDER_EXTERNAL_HOSTNAME}/${fileName}`;
 
+
+  console.log("FILE NAME:", fileName);
+  console.log("PUBLIC URL:", publicUrl);
+
+      
       res.json({
         tracking_number: trackingNumber,
         label: publicUrl,
