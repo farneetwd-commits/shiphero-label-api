@@ -117,7 +117,7 @@ doc.text(
     doc
       .font("Helvetica-Bold")
       .fontSize(9)
-      .text(trackingNumber, 72, barcodeY + 30);
+      .text(trackingNumber, 72, barcodeY + 29);
 
     // ===========================
     // ✅ BOTTOM LOGO (FIXED)
