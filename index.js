@@ -146,6 +146,9 @@ doc.text(
   console.log("FILE NAME:", fileName);
   console.log("PUBLIC URL:", publicUrl);
 
+  console.log("GENERATED FILE:", fileName);
+  console.log("FILE PATH:", filePath);
+
       
       res.json({
         tracking_number: trackingNumber,
