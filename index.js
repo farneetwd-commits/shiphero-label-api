@@ -74,7 +74,7 @@ const postalCode = data.to_address?.zip || "Zip/Postal Code";
 
     
     // OUTER LABEL BORDER
-    doc.rect(9, 8, 185, 281).stroke();
+    doc.rect(10, 9, 185, 282).stroke();
 
 
     // ===========================
