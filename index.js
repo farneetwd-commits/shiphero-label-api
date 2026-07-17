@@ -26,11 +26,11 @@ app.post("/generate-label", async (req, res) => {
  
 // ✅ FROM (dynamic)
     
-const fromName = data.from_address?.name || "Western Dispatch";
-const fromAddress = data.from_address?.address_1 || "16630 144 Ave NW";
-const fromCity = data.from_address?.city || "Edmonton";
-const fromState = data.from_address?.state || "AB";
-const fromPostalCode = data.from_address?.zip || "T5M 3R8";
+const fromName = "Western Dispatch";
+const fromAddress = "16630 144 Ave NW";
+const fromCity = "Edmonton";
+const fromState = "AB";
+const fromPostalCode = "T5M 3R8";
 
 
 // ✅ TO
