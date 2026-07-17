@@ -72,6 +72,11 @@ const postalCode = data.to_address?.zip || "Zip/Postal Code";
     const stream = fs.createWriteStream(filePath);
     doc.pipe(stream);
 
+    
+    // OUTER LABEL BORDER
+    doc.rect(5, 5, 278, 422).stroke();
+
+
     // ===========================
     // ✅ WATERMARK (moved up)
     // ===========================
